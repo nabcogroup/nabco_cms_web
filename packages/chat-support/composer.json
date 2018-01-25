@@ -1,0 +1,19 @@
+{
+    "name": "nabco/chat-support",
+    "type": "library",
+    "require": {
+        "larapack/hooks": "~1.0"
+    },
+    "autoload": {
+    "psr-4": {
+      "ChatSupport\\": "src/"
+    }
+  },
+  "extra": {
+    "hook": {
+      "providers": [
+        "ChatSupport\\ChatSupportProvider"
+      ]
+    }
+  }
+}

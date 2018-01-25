@@ -1,0 +1,19 @@
+{
+  "name": "nabco",
+  "description": "Nabco Official Web Site",
+  "main": "",
+  "authors": [
+    "Arnold Mercado <arnold.mercado@hotmail.com>",
+    "Bryan Mesias"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
