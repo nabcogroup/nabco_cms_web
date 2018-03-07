@@ -35,23 +35,15 @@
                         {{ csrf_field() }}
 
                         <div class="panel-body">
+                            <!-- error -->
+                            @include("voyager::partials.form-errors",['errors' => $errors])
 
-                            @if (count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
-                        <!-- Adding / Editing -->
+                            <!-- Adding / Editing -->
                             @php
                                 $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
                                 $excluded = ["thumbnail_path","full_path"];
                             @endphp
-                        <!--  -->
+                            <!--  -->
                             @foreach($dataTypeRows as $row)
                             <!-- options -->
                                 @php

@@ -7,7 +7,7 @@ use TCG\Voyager\Facades\Voyager;
 
 
 
-trait BreadIndexController {
+trait BreadBrowseController {
 
      //***************************************
     //               ____
@@ -32,7 +32,7 @@ trait BreadIndexController {
         $this->authorize('browse', app($dataType->model_name));
 
         $getter = $dataType->server_side ? 'paginate' : 'get';
-
+        
         $search = (object) ['value' => $request->get('s'), 'key' => $request->get('key'), 'filter' => $request->get('filter')];
         $searchable = $dataType->server_side ? array_keys(SchemaManager::describeTable(app($dataType->model_name)->getTable())->toArray()) : '';
         $orderBy = $request->get('order_by');
@@ -60,7 +60,8 @@ trait BreadIndexController {
                     $query->with($relationships)->orderBy($orderBy, $querySortOrder),
                     $getter,
                 ]);
-            } elseif ($model->timestamps) {
+            } 
+            elseif ($model->timestamps) {
                 $dataTypeContent = call_user_func([$query->latest($model::CREATED_AT), $getter]);
             } else {
                 $dataTypeContent = call_user_func([$query->with($relationships)->orderBy($model->getKeyName(), 'DESC'), $getter]);
@@ -82,7 +83,7 @@ trait BreadIndexController {
         // Check if server side pagination is enabled
         $isServerSide = isset($dataType->server_side) && $dataType->server_side;
 
-        $view = 'voyager::bread.browse';
+        $view = "voyager::bread.browse";
 
         if (view()->exists("voyager::$slug.browse")) {
             $view = "voyager::$slug.browse";

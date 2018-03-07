@@ -92,7 +92,8 @@ class MediaManagerController extends BaseController
         $this->authorize('add', app($dataType->model_name));
 
         if (!$request->ajax()) {
-            $data = $this->insertUpdate($request,$dataType);
+            $dataTypeContent = new MediaManager();
+            $data = $this->insertUpdate($request,$dataTypeContent,$dataType,true);
 
             event(new BreadDataAdded($dataType, $data));
 
