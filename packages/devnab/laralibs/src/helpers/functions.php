@@ -6,9 +6,7 @@ use DevNab\LaraLibs\App\VoyagerRepositories\PostRepository;
 if(!function_exists("get_image_path")) {
 
     function get_image_path($url_path) {
-
         return Voyager::image($url_path);
-
     }
 };
 
@@ -19,6 +17,7 @@ if(!function_exists("get_the_post")) {
         $repository = new PostRepository();
 
         return $repository->getBySlug($slug,$args);
+        
     }
 };
 

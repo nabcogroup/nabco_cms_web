@@ -19,6 +19,7 @@
 </head>
 
 <body>
+
 	<header>
 		<!-- top header -->
 		<div id="top-header">
@@ -39,9 +40,6 @@
 		<div id="main-nav">
 			<nav class="navbar navbar-inverse nb-navbar">
 				<div class="container">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="{!! url('/') !!}">NABCO</a>
-					</div>
 					<div class="collapse navbar-collapse">
 						{{menu('main-menu','theme::layout.includes.main_menu',["class" => "nav navbar-nav"])}}
 					</div>
@@ -49,9 +47,9 @@
 			</nav>
 		</div>
 	</header>
+
 	<main>
 		@yield('content')
-		
 	</main>
 
 	@include("theme::layout.includes.footer")

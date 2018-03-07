@@ -44,13 +44,17 @@ class LaraLibsProvider extends ServiceProvider
         $this->app->bind("cmsRoute","DevNab\LaraLibs\CMSRoute");
 
         $loader = AliasLoader::getInstance();
+
         $loader->alias("CMSRoute","DevNab\LaraLibs\Facades\CMSRoute");
     }
 
 
     private function loadHelpers() {
+
         foreach (glob(__DIR__.'/helpers/*.php') as $filename) {
+
             require_once $filename;
+
         }
     }
 
@@ -63,7 +67,9 @@ class LaraLibsProvider extends ServiceProvider
         $theme_function_file = $theme_folder . '/' . $theme->folder . '/functions.php';
         
         if(file_exists($theme_function_file)) {
+
             require_once $theme_function_file;
+            
         }
         
     }
@@ -74,9 +80,14 @@ class LaraLibsProvider extends ServiceProvider
     function rescue(callable $callback, $rescue = null)
     {
         try {
+
             return $callback();
-        } catch (Throwable $e) {
+
+        } 
+        catch (Throwable $e) {
+            
             report($e);
+
             return value($rescue);
         }
     }

@@ -76,10 +76,12 @@ class ChatSupportProvider extends ServiceProvider {
      */
     protected function ensurePermissionExist()
     {
+        
         $permission = Permission::firstOrNew([
             'key' => 'browse_themes',
             'table_name' => 'admin',
         ]);
+
         if (!$permission->exists) {
             $permission->save();
             $role = Role::where('name', 'admin')->first();

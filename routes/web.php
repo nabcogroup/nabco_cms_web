@@ -16,7 +16,7 @@ Route::group(['prefix' => 'admin'],function() {
 
 
 
-CMSRoute::routes();
+//CMSRoute::routes();
 
 
 

@@ -11,5 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/views/themes/onetheme/dev/js/app.js', 'public/themes/onetheme/assets/js')
-   .sass('resources/views/themes/onetheme/dev/sass/app.scss', 'public/themes/onetheme/assets/css');
+mix.js('resources/assets/js/app.js', 'public/themes/onetheme/assets/js')
+   .sass('resources/assets/sass/app.scss', 'public/themes/onetheme/assets/css');
+
+mix.js('resources/assets/js/admin.js','public/vendor/assets/js');

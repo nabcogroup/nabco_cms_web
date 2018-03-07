@@ -19,14 +19,13 @@ class PageController extends Controller
     }
     public function index() {
         
-        return view("theme::home");
+        return view("theme::pages.home");
     }
 
     public function slug($slug) {
         
         
         $page = $this->repo->getBySlug($slug);
-        
         
         //check if inside page 
         $view = "theme::pages.$page->slug";
