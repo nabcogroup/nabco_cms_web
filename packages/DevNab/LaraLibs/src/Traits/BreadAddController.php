@@ -26,16 +26,14 @@ trait BreadAddController {
     
     public function create(Request $request) {
 
-        $slug = $this->getSlug($request);
+        $slug = $this->slug;
         
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
         // Check permission
         $this->authorize('add', app($dataType->model_name));
 
-        $dataTypeContent = (strlen($dataType->model_name) != 0)
-                            ? new $dataType->model_name()
-                            : false;
+        $dataTypeContent = $this->dataTypeContent;
 
         foreach ($dataType->addRows as $key => $row) {
             $details = json_decode($row->details);
@@ -48,11 +46,7 @@ trait BreadAddController {
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
 
-        $view = "voyager::bread.edit-add";
-        
-        if (view()->exists("voyager::$slug.edit-add")) {
-            $view = "voyager::$slug.edit-add";
-        }
+        $view = "voyager::{$this->view}.edit-add";
 
         return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
     }
@@ -60,7 +54,7 @@ trait BreadAddController {
 
     public function store(Request $request) {
         
-        $slug = $this->getSlug($request);
+        $slug = $this->slug;
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
@@ -69,7 +63,7 @@ trait BreadAddController {
 
         // Validate fields with ajax
         $val = $this->validateBread($request->all(), $dataType->addRows);
-
+        
         if ($val->fails()) {
             return response()->json(['errors' => $val->messages()]);
         }

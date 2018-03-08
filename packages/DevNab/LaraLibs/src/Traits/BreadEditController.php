@@ -25,18 +25,12 @@ trait BreadEditController {
     //****************************************
     public function edit(Request $request, $id)
     {
-        $slug = $this->getSlug($request);
 
-        $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
-
-        // Compatibility with Model binding.
-        $id = $id instanceof Model ? $id->{$id->getKeyName()} : $id;
-
+        $dataType = Voyager::model('DataType')->where('slug', '=', $this->slug)->first();
+        
         $relationships = $this->getRelationships($dataType);
 
-        $dataTypeContent = (strlen($dataType->model_name) != 0)
-            ? app($dataType->model_name)->with($relationships)->findOrFail($id)
-            : DB::table($dataType->name)->where('id', $id)->first(); // If Model doest exist, get data from table name
+        $dataTypeContent = $this->dataTypeContent->with($relationships)->findOrFail($id);
 
         foreach ($dataType->editRows as $key => $row) {
             $details = json_decode($row->details);
@@ -52,11 +46,7 @@ trait BreadEditController {
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
 
-        $view = 'voyager::bread.edit-add';
-
-        if (view()->exists("voyager::$slug.edit-add")) {
-            $view = "voyager::$slug.edit-add";
-        }
+        $view = 'voyager::'.$this->view.'.edit-add';
 
         return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
     }
@@ -64,28 +54,25 @@ trait BreadEditController {
     // POST BR(E)AD
     public function update(Request $request, $id)
     {
-        $slug = $this->getSlug($request);
-
+        $slug = $this->slug;
+        
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
-        // Compatibility with Model binding.
-        $id = $id instanceof Model ? $id->{$id->getKeyName()} : $id;
-
-        $data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
+        $data = $this->dataTypeContent->findOrFail($id);
 
         // Check permission
         $this->authorize('edit', $data);
 
         // Validate fields with ajax
         $val = $this->validateBread($request->all(), $dataType->editRows);
-
+        
         if ($val->fails()) {
             return response()->json(['errors' => $val->messages()]);
         }
 
         if (!$request->ajax()) {
             $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
-
+            
             event(new BreadDataUpdated($dataType, $data));
 
             return redirect()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 
 use Illuminate\Http\Request;
@@ -32,7 +32,7 @@ class MediaManagerController extends BaseController
         $sortOrder = $request->get('sort_order', null);
 
         $query = MediaManager::select("*")->filters($search);
-
+        
         if($orderBy && in_array($orderBy,$dataType->fields())) {
             $querySortOrder = (!empty($sortOrder)) ? $sortOrder : 'DESC';
             $dataTypeContent = call_user_func([$query->orderBy($orderBy, $querySortOrder),$getter]);
@@ -149,11 +149,7 @@ class MediaManagerController extends BaseController
                 'message'    => __('voyager.generic.successfully_updated')." {$dataType->display_name_singular}",
                 'alert-type' => 'success',
             ]);
-
     }
-
-
-
 
     private function insertUpdate(Request $request,&$dataTypeContent, &$dataType,$isCreate = true) {
         

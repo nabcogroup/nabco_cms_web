@@ -299,7 +299,7 @@
 
 @section('javascript')
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-    <script src="{{asset("admin/js/media-manager.js")}}"></script>
+    <script src="{{asset("core/js/media-manager.js")}}"></script>
     <script>
         $('document').ready(function () {
             $('#slug').slugify();

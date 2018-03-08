@@ -41,7 +41,7 @@
 			<nav class="navbar navbar-inverse nb-navbar">
 				<div class="container">
 					<div class="collapse navbar-collapse">
-						{{menu('main-menu','theme::layout.includes.main_menu',["class" => "nav navbar-nav"])}}
+						{{ menu('main-menu',theme::layout.includes.main_menu) }}
 					</div>
 				</div>
 			</nav>

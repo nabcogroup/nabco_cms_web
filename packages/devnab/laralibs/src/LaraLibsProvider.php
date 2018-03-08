@@ -22,13 +22,13 @@ class LaraLibsProvider extends ServiceProvider
 
         $this->loadHelpers();
 
-        if (Schema::hasTable('voyager_themes')) {
-            //load theme function
+        // if (Schema::hasTable('voyager_themes')) {
+        //     //load theme function
             
-            $theme = DB::table('voyager_themes')->where('active',1)->select('folder')->first();
+        //     $theme = DB::table('voyager_themes')->where('active',1)->select('folder')->first();
 
-            $this->loadThemeFunctions($theme);
-        }
+        //     $this->loadThemeFunctions($theme);
+        // }
         
         
         
