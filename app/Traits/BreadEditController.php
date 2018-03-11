@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 
-namespace DevNab\LaraLibs\Traits;
+namespace App\Traits;
 
 use Illuminate\Http\Request;
 use TCG\Voyager\Facades\Voyager;

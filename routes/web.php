@@ -17,9 +17,11 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
-Route::get('/',"ThemePageController");
+Route::get('/{slug?}',"ThemePageController");
 
 
-//CMSRoute::routes();
+
+
+
 
 

@@ -22,8 +22,6 @@
                   method="POST" enctype="multipart/form-data">
                 <div class="col-md-8">
                     <div class="panel panel-bordered">
-
-
                         <!-- PUT Method if we are editing -->
                         @if(isset($dataTypeContent->id))
                             {{ method_field("PUT") }}
@@ -82,20 +80,19 @@
                             @endphp
                             @foreach($filterDataTypeRows as $row)
                                 @php
-                                    $options = json_decode($dataTypeContent->{$row->field});
-                                    $displayOptions = (!is_null($options)) ? $options->thumbnail : null;
+                                    $meta_media = $dataTypeContent->{$row->field};
+                                    $media = \App\Models\MediaManager::slug($meta_media)->first();
+                                    $options = (object)['thumbnail' => (!is_null($media) ? $media->thumbnail_path : '')];
+
                                 @endphp
                                 <div class="col-md-12">
-                                    <input type="hidden"  id="{{$row->field}}" name="{{$row->field}}" value="{{ $dataTypeContent->meta_media }}"/>
-                                    @if(!is_null($displayOptions))
-                                        @include("voyager::partials.image-profile",['id' => "metaimg", "path" => $displayOptions])
-                                    @endif
-                                </div>
-                                <div class="col-md-12">
-                                    <a href="#" id="meta_media_browser" class="btn btn-default">Open Media</a>
-                                    <span id="meta-name">{{(!is_null($options)) ? $options->meta : "" }}</span>
+                                    <input type="text" class="js-input-profile"  id="{{$row->field}}" name="{{$row->field}}" value="{{ $dataTypeContent->meta_media }}"/>
+                                    @include("voyager::partials.image-profile",['options' => $options])
                                 </div>
                             @endforeach
+                        </div>
+                        <div class="panel-footer">
+                            <a href="#" id="meta_media_browser" class="btn btn-default">Open Media</a>
                         </div>
                     </div>
                 </div>
@@ -118,20 +115,13 @@
         (function () {
             $("#meta_media_browser").on("click", function (e) {
                 e.preventDefault();
-
-                var formPage = $("#frmPage");
-                var dialog = bootbox.dialog({
-                    title: "Media Manager",
-                    message: "This is an alert with a callback!",
-                    size: 'large',
-                    closeButton: true
-                });
-
-                var options = {
-                    url: "@php echo route('voyager.media-manager.index') @endphp"
-                };
-
-                MM.single(dialog,options)
+                var args = {
+                    options : {
+                        url: "@php echo route('voyager.media-manager.index') @endphp"
+                    }
+                }
+                
+                MM.single(args);
             });
         }());
     </script>

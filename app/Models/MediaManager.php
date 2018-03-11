@@ -15,4 +15,12 @@ class MediaManager extends Model
             $query->where($search->key, $search_filter, $search_value);
         }
     }
+
+    public function scopeSlug($query,$value) {
+        return $query->where('slug',$value);
+    }
+
+    public function scopeSlugIn($query,$values = []) {
+        return $query->whereIn('slug',$values);
+    }
 }

@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Traits\BreadAddController;
+use App\Traits\BreadBrowseController;
+use App\Traits\BreadDestroyController;
+use App\Traits\BreadEditController;
 use TCG\Voyager\Models\Page;
-use TCG\Voyager\Facades\Voyager;
-
-use TCG\Voyager\Events\BreadDataUpdated;
 
 
 
-use DevNab\LaraLibs\Traits\BreadAddController;
-use DevNab\LaraLibs\Traits\BreadEditController;
-use DevNab\LaraLibs\Traits\BreadBrowseController;
-use DevNab\LaraLibs\Traits\BreadDestroyController;
+
 use TCG\Voyager\Http\Controllers\Controller as BaseController;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
 

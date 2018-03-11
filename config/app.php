@@ -230,4 +230,18 @@ return [
 
     ],
 
+    'post_meta_schema' => [
+
+        "_profile" => [
+            "description"   => "Profile",
+            "input_type"    => "hidden",
+            "value"         => ""
+        ],
+        "_galleries" => [
+            "description"   =>  "Galleries",
+            "input_type"    =>  "hidden",
+            "value"         =>  ""
+        ]
+    ],
+
 ];
